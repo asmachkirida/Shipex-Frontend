@@ -1,0 +1,15 @@
+[
+  {
+    "first_name": "El Feddani",
+    "last_name": "AYA",
+    "email": "aya.elfeddani@example.com",
+    "cin": "AHH235",
+    "phone_number": "0273838329",
+    "license_number": "A",
+   "vehicle_number": "V001",
+    "current_place": "Place 1",
+    "action": "Edit/Delete" 
+  }
+
+  
+]
