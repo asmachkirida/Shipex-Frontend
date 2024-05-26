@@ -163,6 +163,33 @@ Le code backend suit une structure modulaire et organisée, tirant parti de la p
 - **mysqlclient  :** Connecteur JDBC pour se connecter à une base de données MySQL .
 
 
+### Prérequis :
+- Git :
+
+  Assurez-vous d'avoir Git installé. Si ce n'est pas le cas, téléchargez et installez-le depuis [git-scm.com](https://git-scm.com/).
+
+- Node.js et npm :
+
+  Installez Node.js et npm depuis [nodejs.org](https://nodejs.org/).
+  
+- MySQL :
+
+  Assurez-vous d'avoir MySQL installé et fonctionnel. Vous pouvez le télécharger depuis [mysql.com](https://www.mysql.com/).
+
+- Django :
+
+  Installez Django en utilisant pip : `pip install django`.
+  
+- Backend Project :
+
+  Clonez le projet en utilisant Git : `git clone <repository_url>`.
+  
+- Frontend Project :
+
+  Pour le projet React, installez les dépendances en exécutant : `npm install`.
+
+
+
 
 
 
