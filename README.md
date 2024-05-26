@@ -69,6 +69,14 @@ La structure du projet frontend React repose sur quatre composants principaux, c
   - **Gestion des Colis:** Permet de visualiser, ajouter, modifier et supprimer des colis.
   - **Gestion des Utilisateurs:** Fonctionnalités d'ajout, modification et suppression rapides des livreurs et des clients existants.
   - **Tableaux et Graphiques:** Utilisation de graphiques pour représenter les données de manière visuelle et compréhensible.
+  - 
+### 5. Composant Tracker
+- **Objectif:** Fournir une fonctionnalité de suivi en temps réel de la localisation des chauffeurs pour une gestion efficace des itinéraires et des livraisons.
+- **Fonctionnalités:**
+  - **Suivi GPS en Temps Réel:** Affichage de la localisation en temps réel des chauffeurs sur une carte interactive.
+  - **Mise à Jour Automatique:** Actualisation régulière de la position du chauffeur sur la carte pour une surveillance en temps réel.
+
+Ce composant Tracker améliore la visibilité et la gestion des chauffeurs, permettant ainsi une planification plus efficace des itinéraires et une communication en temps réel avec les chauffeurs pour résoudre les problèmes potentiels.
 
 
 ## Dépendances Principales
