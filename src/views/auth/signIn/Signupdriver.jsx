@@ -14,54 +14,42 @@ function SignUpDriver() {
   const [show, setShow] = useState(false);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
   const [cin, setCin] = useState("");
   const [licenseNumber, setLicenseNumber] = useState("");
   const [vehicleNumber, setVehicleNumber] = useState("");
   const [errors, setErrors] = useState({});
 
-  const validateEmail = () => {
-    // Add email validation logic here
+  const navigateToSignUp = () => {
+    history.push("/auth/sign-in");
   };
-
-  const validatePassword = () => {
-    // Add password validation logic here
-  };
-
   const handleSignUp = async (e) => {
     e.preventDefault();
-    try {
-      const userData = {
-        user: {
-          name: `${firstName} ${lastName}`,
-          email,
-          password
-        },
-        cin,
-        telephone: phoneNumber,
+   
+      try {
+        const response = await axios.post("http://localhost:8000/api/registerdriver", {
+          fname: firstName,
+          lname: lastName,
+          email: email,
+          password: password,
+      
+        cin: cin,
+        phone_number: phoneNumber,
+        current_place: "current",
         license_number: licenseNumber,
         vehicle_number: vehicleNumber
-      };
-  
-      const response = await axios.post("http://localhost:8000/api/registerdriver", userData);
-      if (response.status === 200 || response.status === 201) {
-        // Redirect the driver to their page
+        });
+      
         history.push("/auth/sign-in/");
-  
-   
-      } else {
-        console.error("Error signing up:", response.data.message);
-      }
-    } catch (error) {
-      console.error("Error signing up:", error);
+        console.log("done, u did it ");
+      } catch (error) {
+        console.error("Error signing up:", error);
+      
     }
   };
-  
-  
+ 
 
   return (
     <DefaultAuth illustrationBackground={illustration} image={illustration}>
@@ -94,7 +82,7 @@ function SignUpDriver() {
           me="auto"
           mb={{ base: "20px", md: "auto" }}
         >
-               <Heading color="#4e88a0" fontSize="36px" mt="-120px" mb="20px" ml={"150px"}>
+               <Heading color="#4e88a0" fontSize="36px" mt="-130px" mb="20px" ml={"150px"}>
             Signup
           </Heading>
                       <HSeparator />
@@ -104,7 +92,6 @@ function SignUpDriver() {
               <Flex direction="row" flexWrap="wrap" >
                 <FormControl id="firstName" mr="2" mb="2">
                   <FormLabel style={{marginBottom:"-1px"}} >First Name</FormLabel>
-                 
                   <Input style={{marginBottom:"-4px"}} type="text" value={firstName} onChange={(e) => setFirstName(e.target.value)} isRequired />
                 </FormControl>
                 <FormControl id="lastName" mr="2" mb="2">
@@ -113,7 +100,6 @@ function SignUpDriver() {
                 </FormControl>
               </Flex>
               <Flex direction="row" flexWrap="wrap">
-               
                 <FormControl id="email" mr="4" mb="4">
                   <FormLabel style={{marginBottom:"-4px"}}>Email</FormLabel>
                   <Input style={{marginBottom:"-4px"}} type="email" value={email} onChange={(e) => setEmail(e.target.value)} isRequired />
@@ -154,12 +140,21 @@ function SignUpDriver() {
                 {errors.vehicle_number && <Text color="red.500">{errors.vehicle_number}</Text>}
               </FormControl>
             </Flex>
-            <Button type="submit" backgroundColor="#4e88a0" width="100%" style={{marginTop:"-20px"}} onClick={handleSignUp}>Sign Up</Button>
+            <Button type="submit" backgroundColor="#4e88a0" width="100%" style={{marginTop:"-25px"}}>Sign Up</Button>
           </form>
         </Flex>
       </Flex>
+      <Flex flexDirection="column" justifyContent="center" marginLeft={"230px"} marginTop={"60px"} marginBottom={"-70px"} alignItems="start" maxW="100%" mt="10px">
+              <Text fontSize="sm">
+                Already have an account?{" "}
+                <Text as="span" color="#4e88a0" fontWeight="500" cursor="pointer" onClick={navigateToSignUp} >
+                  Sign in
+                </Text> 
+              </Text>
+            </Flex>
     </DefaultAuth>
   );
 }
 
 export default SignUpDriver;
+

@@ -13,7 +13,8 @@ import {
   MdPerson,
   MdHome,
   MdLock, MdMap,
-  MdOutlineShoppingCart,
+  MdAssignment, MdAdd,MdPackage,
+  MdOutlineShoppingCart,MdLocalShipping,MdCardGiftcard
 } from "react-icons/md";
 
 // Admin Imports
@@ -36,7 +37,7 @@ const routes = [
 	  path: "/new-package",
 	  icon: (
 		<Icon
-		  as={MdMap}
+		  as={MdAdd}
 		  width='20px'
 		  height='20px'
 		  color='inherit'
@@ -48,7 +49,7 @@ const routes = [
 	{
 	  name: "My packages",
 	  layout: "/client",
-	  icon: <Icon as={MdBarChart} width='20px' height='20px' color='inherit' />,
+	  icon: <Icon as={MdCardGiftcard} width='20px' height='20px' color='inherit' />,
 	  path: "/my-packages",
 	  component: DataTables,
 	}

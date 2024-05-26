@@ -5,7 +5,7 @@ import {
   MdBarChart,
   MdPerson,
   MdHome,
-  MdLock, MdMap,
+  MdLock, MdMap,MdArrowForward,MdPeople ,MdLocalShipping ,
   MdOutlineShoppingCart,
 } from "react-icons/md";
 
@@ -29,24 +29,9 @@ const routes = [
     component: MainDashboard,
   },
   {
-    name: "MAP",
-    layout: "/admin",
-    path: "/map",
-    icon: (
-      <Icon
-        as={MdMap}
-        width='20px'
-        height='20px'
-        color='inherit'
-      />
-    ),
-    component: NFTMarketplace,
-    secondary: true,
-  },
-  {
     name: "Packages",
     layout: "/admin",
-    icon: <Icon as={MdBarChart} width='20px' height='20px' color='inherit' />,
+    icon: <Icon as={MdLocalShipping } width='20px' height='20px' color='inherit' />,
     path: "/data-tables",
     component: DataTables,
   },
@@ -61,14 +46,14 @@ const routes = [
     name: "Clients",
     layout: "/admin",
     path: "/client-default",
-    icon: <Icon as={MdPerson} width='20px' height='20px' color='inherit' />,
+    icon: <Icon as={MdPeople } width='20px' height='20px' color='inherit' />,
     component: Clients,
   },
   {
-    name: "Sign In",
+    name: "    ",
     layout: "/auth",
     path: "/sign-in",
-    icon: <Icon as={MdLock} width='20px' height='20px' color='inherit' />,
+    icon: <Icon as={MdArrowForward} width='20px' height='20px' color='inherit' />,
     component: SignInCentered,
   }
 

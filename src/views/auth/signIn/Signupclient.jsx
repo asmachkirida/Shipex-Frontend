@@ -54,6 +54,9 @@ function SignUpClient() {
     return isValid;
   };
 
+  const navigateToSignUp = () => {
+    history.push("/auth/sign-in");
+  };
   const handleSignUp = async (e) => {
     e.preventDefault();
     if (validateEmail() && validatePassword()) {
@@ -156,7 +159,16 @@ function SignUpClient() {
             </Button>
           </form>
         </Flex>
+   
       </Flex>
+      <Flex flexDirection="column" justifyContent="center" marginLeft={"230px"} marginTop={"20px"} marginBottom={"20px"} alignItems="start" maxW="100%" mt="10px">
+              <Text fontSize="sm">
+                Already have an account?{" "}
+                <Text as="span" color="#4e88a0" fontWeight="500" cursor="pointer" onClick={navigateToSignUp} >
+                  Sign in
+                </Text> 
+              </Text>
+            </Flex>
     </DefaultAuth>
   );
 }

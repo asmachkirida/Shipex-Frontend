@@ -37,22 +37,13 @@ import tableDataCheck from "views/admin/dataTables/variables/tableDataCheck.json
 import tableDataColumns from "views/admin/dataTables/variables/tableDataColumns.json";
 import tableDataComplex from "views/admin/Clients/variables/tableDataComplex.json";
 import React from "react";
+import AdminClientView from "./components/AdminClientView";
 
 export default function Settings() {
   // Chakra Color Mode
   return (
     <Box pt={{ base: "400px", md: "80px", xl: "80px" }}>
-      <SimpleGrid
-        mb='20px' mt='20px'
-        columns={{ sm: 5, md: 1}}
-        spacing={{ base: "20px", xl: "20px" }}>
-     
-       
-        <ComplexTable
-          columnsData={columnsDataComplex}
-          tableData={tableDataDevelopment}
-        />
-      </SimpleGrid>
+     <AdminClientView/>
     </Box>
   );
 }

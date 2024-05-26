@@ -29,6 +29,7 @@
     "jwt-decode": "^4.0.0",
     "mapbox-gl": "^3.2.0",
     "ol": "^9.1.0",
+    "pdfmake": "^0.2.10",
     "react": "17.0.2",
     "react-apexcharts": "1.4.0",
     "react-calendar": "^3.7.0",
@@ -41,8 +42,10 @@
     "react-router-dom": "^5.3.0",
     "react-scripts": "^5.0.0",
     "react-table": "^7.7.0",
+    "recharts": "^2.12.7",
     "stylis": "^4.1.1",
     "stylis-plugin-rtl": "2.0.2",
+    "victory": "^37.0.2",
     "web-vitals": "^1.1.2"
   },
   "scripts": {

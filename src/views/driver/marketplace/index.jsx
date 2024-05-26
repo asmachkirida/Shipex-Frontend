@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { GoogleMap, DirectionsRenderer, Marker, InfoWindow, useJsApiLoader } from "@react-google-maps/api";
+import axios from "axios"; // Import axios for making HTTP requests
+import { jwtDecode } from "jwt-decode";
 
+import Cookies from "js-cookie";
 const containerStyle = {
   width: "70%",
   height: "85vh",
@@ -11,6 +14,7 @@ const rightPanelStyle = {
   height: "100%",
   float: "right",
   padding: "20px",
+  
   boxSizing: "border-box",
   background: "white",
   borderRadius: "10px",
@@ -56,7 +60,16 @@ const Marketplace = () => {
   const [estimatedStartDate, setEstimatedStartDate] = useState("");
   const [estimatedArrivalDate, setEstimatedArrivalDate] = useState("");
   const [acceptedPackages, setAcceptedPackages] = useState([]);
-
+  const [colis, setColis] = useState([]);
+  const BASE_IMAGE_URL = "http://localhost:8000/colis_images"; // Base URL for package images
+  const [driverId, setDriverId] = useState(null); // Add state for driver ID
+  const [selectedColisIds, setSelectedColisIds] = useState([]);
+  useEffect(() => {
+    if (selectedPackage) {
+      const ids = [...selectedColisIds, selectedPackage.id];
+      setSelectedColisIds(ids);
+    }
+  }, [selectedPackage]);
   const handleEstimatedStartDateChange = (event) => {
     const startDate = event.target.value;
     console.log("Estimated Start Date:", startDate);
@@ -81,7 +94,7 @@ const Marketplace = () => {
     const startPoint = await getCityPosition(cityNames[0], geocoder);
   
     // Remove the startInput state setting
-  
+  console.log("clicked");
     const newCities = [];
     for (const cityName of cityNames) {
       const position = await getCityPosition(cityName, geocoder);
@@ -94,6 +107,137 @@ const Marketplace = () => {
   };
   
   
+  useEffect(() => {
+    const fetchColis = async () => {
+      try {
+        const token = Cookies.get('token');
+        if (!token) {
+          console.error('No token found in cookies');
+          return;
+        }
+  
+        const response = await axios.get("http://localhost:8000/api/drivercolislist", {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+        console.log("Colis data:", response.data); // Log the fetched colis data
+        // Map colis data to match the structure of static packages
+        const formattedColis = response.data.map(colis => ({
+          id: colis.id,
+          source: {
+            lat: parseFloat(colis.source.lat), // Extract latitude from source
+            lng: parseFloat(colis.source.lng), // Extract longitude from source
+          },
+          destination: {
+            lat: parseFloat(colis.destination.lat),
+            lng: parseFloat(colis.destination.lng),
+          },
+          weight: parseFloat(colis.total_weight),
+          articles: colis.products.map(product => product.name),
+          photo: colis.image,
+        }));
+        setColis(formattedColis);
+      } catch (error) {
+        console.error("Error fetching colis:", error);
+      }
+    };
+  
+    fetchColis();
+  }, []);
+  
+
+  const fetchColis = async () => {
+    try {
+      const token = Cookies.get('token');
+      if (!token) {
+        console.error('No token found in cookies');
+        return;
+      }
+  
+      const response = await axios.get("http://localhost:8000/api/drivercolislist", {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+  
+      console.log("Colis data:", response.data); // Log the fetched colis data
+  
+      // Geocode city names to obtain latitude and longitude
+      const geocoder = new window.google.maps.Geocoder();
+      const formattedColis = await Promise.all(response.data.map(async (colis) => {
+        try {
+          // Geocode source city name
+          const sourceLocation = await geocodeCity(colis.source, geocoder);
+          const packageImageUrl = `${BASE_IMAGE_URL}/${colis.image.split('/').pop()}`;
+          return {
+            id: colis.id,
+            source: sourceLocation,
+            destination: colis.destination, // Keep destination as a city name
+            weight: parseFloat(colis.total_weight),
+            articles: colis.products.map(product => product.description), // Map product descriptions to articles
+            photo: packageImageUrl,
+          };
+        } catch (error) {
+          console.error("Error geocoding city:", error);
+          return null;
+        }
+      }));
+  
+      // Filter out null values
+      const filteredColis = formattedColis.filter(colis => colis !== null);
+  
+      console.log("Colis:", filteredColis);
+      setColis(filteredColis);
+    } catch (error) {
+      console.error("Error fetching colis:", error);
+    }
+  };
+  
+  const geocodeCity = (cityName, geocoder) => {
+    return new Promise((resolve, reject) => {
+      geocoder.geocode({ address: cityName }, (results, status) => {
+        if (status === "OK" && results[0]) {
+          const position = {
+            lat: results[0].geometry.location.lat(),
+            lng: results[0].geometry.location.lng()
+          };
+          resolve(position);
+        } else {
+          console.error("Geocode was not successful for the following reason:", status);
+          reject(status);
+        }
+      });
+    });
+  };
+  
+  
+  
+  
+
+
+  useEffect(() => {
+    fetchColis();
+  }, []);
+  
+  useEffect(() => {
+    console.log("Colis:", colis);
+  }, [colis]);
+  
+
+
+
+
+  const handlePackageClick = (colisId) => {
+    const clickedColis = colis.find(colis => colis.id === colisId);
+    setSelectedPackage(clickedColis);
+  };
+  
+
+
+
+
+
 
   const getCityPosition = (cityName, geocoder) => {
     return new Promise((resolve, reject) => {
@@ -184,10 +328,7 @@ const Marketplace = () => {
     return deg * (Math.PI / 180);
   };
 
-  const handlePackageClick = (packageId) => {
-    const clickedPackage = packages.find(pkg => pkg.id === packageId);
-    setSelectedPackage(clickedPackage);
-  };
+
   const acceptedPackageStyle = {
     border: "1px solid #ccc",
     borderRadius: "5px",
@@ -213,6 +354,8 @@ const Marketplace = () => {
     };
 
     const handleAccept = () => {
+      console.log("Selected Colis IDs:", selectedColisIds);
+
       setAcceptedPackages(prevPackages => [...prevPackages, selectedPackage]);
     };
     
@@ -227,37 +370,16 @@ const Marketplace = () => {
     
     const TripDetails = ({ onEstimatedStartDateChange, onEstimatedArrivalDateChange }) => (
       <div style={tripDetailsStyle}>
-        <h3>Trip Details</h3>
+     
         <div style={inputContainerStyle}>
-          <label htmlFor="estimatedStartDate" style={labelStyle}>Estimated Start Date:</label>
-          <input
-  type="date"
-  id="estimatedStartDate"
-  style={inputStyle}
-  value={estimatedStartDate} // Update value prop here
-  onChange={handleEstimatedStartDateChange}
-  placeholder="YYYY-MM-DD"
-/>
-        </div>
-        <div style={inputContainerStyle}>
-          <label htmlFor="estimatedArrivalDate" style={labelStyle}>Estimated Arrival Date:</label>
-          <input
-  type="date"
-  id="estimatedArrivalDate"
-  style={inputStyle}
-  value={estimatedArrivalDate} // Update value prop here
-  onChange={handleEstimatedArrivalDateChange}
-  placeholder="YYYY-MM-DD"
-/>
+          
   {/* Display accepted packages */}
 {/* Display accepted packages */}
 <div style={{ maxHeight: "200px", marginTop: "20px", marginBottom: "20px", border: "1px solid black", overflowY: "auto" }}>
   {acceptedPackages.map((acceptedPackage, index) => (
     <div key={index} style={acceptedPackageStyle}>
       <h4>Accepted Package {index + 1}</h4>
-      <p>Source: {acceptedPackage.source.lat}, {acceptedPackage.source.lng}</p>
-      <p>Destination: {acceptedPackage.destination.lat}, {acceptedPackage.destination.lng}</p>
-      <p>Weight: {acceptedPackage.weight} kg</p>
+      
       <p>Articles: {acceptedPackage.articles.join(", ")}</p>
     </div>
   ))}
@@ -289,63 +411,138 @@ const Marketplace = () => {
       width: "100%",
     };
     
-  
+    const handleStartTrip = async () => {
+      const token = Cookies.get('token');
+      if (!token) {
+        console.error('No token found in cookies');
+        return;
+      }
+    
+      try {
+        const decodedToken = jwtDecode(token); // Decode the token
+        const driverId = decodedToken.id; // Retrieve the driver ID from the token
+        console.log("Driver ID:", driverId);
+        const startDate = new Date(); // Get the current date
+        const endDate = new Date(startDate); // Create a new Date object with the current date
+        endDate.setDate(endDate.getDate() + 2); // Add 2 days to the current date
+
+        const tripData = {
+          driver_id: driverId,
+          started: false,
+          finished: false,
+          current_place: "startInput",
+          end_date: endDate.toISOString(), // Convert endDate to ISO 8601 format
+          cities_to_visit: citiesInput,
+
+          colis: selectedColisIds // Include selectedColisIds in the trip data
+
+        };
+
+      
+    
+
+
+
+    
+        const response = await axios.post(
+          'http://localhost:8000/api/createTrip',
+          tripData
+        );
+    
+        if (response.status === 201) {
+          console.log('Trip created successfully');
+        }
+      } catch (error) {
+        if (error.response && error.response.status === 400) {
+          // Display an alert if the error status is 400
+          alert("You have an ongoing trip, wait");
+        } else {
+          console.error('Error creating trip:', error);
+        }
+      }
+    };
+    
+    
+    
     
     return (
     <div>
     {isLoaded ? (
-    <GoogleMap mapContainerStyle={containerStyle} center={center} zoom={6}>
-    {route && <DirectionsRenderer directions={route} />}
-    {cities.length > 0 &&
-    cities.map((city, index) => (
-    <Marker key={index} position={city.position} label={city.name.charAt(0)} />
-    ))
-    }
-    {filteredPackages.map(pkg => (
-    pkg.source && (
-    <Marker
-    key={pkg.id}
-    position={pkg.source}
-    onClick={() => handlePackageClick(pkg.id)}
-    icon={{
-    url: "https://maps.google.com/mapfiles/ms/icons/orange-dot.png",
-    scaledSize: new window.google.maps.Size(32, 32)
-    }}
-    />
-    )
-    ))}
-    {selectedPackage && (
-    <InfoWindow
-    position={selectedPackage.source}
-    onCloseClick={() => setSelectedPackage(null)}
-    >
-    <div>
-    <h3>Package Details</h3>
-    <p>Source: {selectedPackage.source.lat}, {selectedPackage.source.lng}</p>
-    <p>Destination: {selectedPackage.destination.lat}, {selectedPackage.destination.lng}</p>
-    <p>Weight: {selectedPackage.weight} kg</p>
-    <p>Articles: {selectedPackage.articles.join(", ")}</p>
-    <img src={selectedPackage.photo} alt="Package" style={{ maxWidth: "200px" }} />
-    <button onClick={handleAccept} style={{ backgroundColor: "green", color: "white", padding: "10px 20px", margin: "10px", borderRadius: "5px" }}>Accept</button>
-    <button onClick={handleDecline} style={{ backgroundColor: "red", color: "white", padding: "10px 20px", margin: "10px", borderRadius: "5px" }}>Decline</button>
-    </div>
-    </InfoWindow>
-    )}
+      <GoogleMap mapContainerStyle={containerStyle} center={center} zoom={6}>
+      {/* Display red markers for cities */}
+      {cities.map((city, index) => (
+        <Marker
+          key={index}
+          position={city.position}
+          label={city.name.charAt(0)}
+          icon={{
+            url: "https://maps.google.com/mapfiles/ms/icons/red-dot.png",
+            scaledSize: new window.google.maps.Size(32, 32)
+          }}
+        />
+      ))}
+      {/* Display orange markers for package locations */}
+      {colis.map(colis => (
+        colis.source && (
+          <Marker
+            key={colis.id}
+            position={colis.source}
+            onClick={() => handlePackageClick(colis.id)}
+            icon={{
+              url: "https://maps.google.com/mapfiles/ms/icons/orange-dot.png",
+              scaledSize: new window.google.maps.Size(32, 32)
+            }}
+          />
+        )
+      ))}
+      {/* Display route between cities */}
+      {route && <DirectionsRenderer directions={route} />}
+      {/* Display info window for selected package */}
+      {selectedPackage && (
+        <InfoWindow
+          position={selectedPackage.source}
+          onCloseClick={() => setSelectedPackage(null)}
+        >
+           <div style={{ padding: '10px', maxWidth: '200px' }}>
+        <h3 style={{ fontSize: '14px', fontWeight: 'bold', marginBottom: '8px' }}>Package Details</h3>
+        <p style={{ margin: '4px 0' }}><strong>Destination:</strong> {selectedPackage.destination}</p>
+        <p style={{ margin: '4px 0' }}><strong>Weight:</strong> {selectedPackage.weight} kg</p>
+        <p style={{ margin: '4px 0' }}><strong>Items:</strong> {selectedPackage.articles.join(", ")}</p>
+        {selectedPackage.photo && (
+          <img src={selectedPackage.photo} alt="Package" style={{ maxWidth: '100%', borderRadius: '8px', margin: '8px 0' }} />
+        )}
+        <div style={{ display: 'flex', justifyContent: 'space-around', marginTop: '8px' }}>
+          <button 
+            onClick={() => handleAccept(selectedPackage.id)} 
+            style={{ backgroundColor: '#4CAF50', color: 'white', border: 'none', padding: '6px 10px', borderRadius: '4px', cursor: 'pointer' }}>
+            Accept
+          </button>
+          <button 
+            onClick={() => handleDecline(selectedPackage.id)} 
+            style={{ backgroundColor: '#f44336', color: 'white', border: 'none', padding: '6px 10px', borderRadius: '4px', cursor: 'pointer' }}>
+            Decline
+          </button>
+        </div>
+      </div>
+        </InfoWindow>
+      )}
     </GoogleMap>
+    
     ) : (
     <div>Loading...</div>
     )}
 <div style={rightPanelStyle}>
-<label htmlFor="estimatedStartDate" style={labelStyle}>Cities to visit:</label>
+<h3>Trip Details</h3>
 
 <input type="text" style={inputStyle} placeholder="Cities input" value={citiesInput} onChange={handleCitiesInputChange} />
 
   <TripDetails 
-    onEstimatedStartDateChange={handleEstimatedStartDateChange}
-    onEstimatedArrivalDateChange={handleEstimatedArrivalDateChange}
+
   />
   <div>
     <button style={buttonStyle} onClick={handleInputSubmit}>View route</button>
+    <button style={buttonStyle}  onClick={handleStartTrip}>Start trip</button>
+
   </div>
 </div>
     </div>

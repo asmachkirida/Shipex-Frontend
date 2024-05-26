@@ -12,10 +12,13 @@ import { Icon } from "@chakra-ui/react";
 import {
   MdBarChart,
   MdPerson,
-  MdHome,
-  MdLock, MdMap,
+  MdHome, MdMap,
   MdOutlineShoppingCart,
-  MdOutlineLocalShipping 
+  MdOutlineLocalShipping ,
+  MdAdd,
+  MdAssignment,
+
+  MdLock
 } from "react-icons/md";
 
 // Admin Imports

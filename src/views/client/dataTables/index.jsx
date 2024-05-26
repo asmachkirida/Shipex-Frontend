@@ -1,38 +1,67 @@
 import React, { useState, useEffect } from "react";
-import { Box, SimpleGrid, Text, Flex, Image } from "@chakra-ui/react";
+import { Box, SimpleGrid, Text, Image } from "@chakra-ui/react";
 import Cookies from 'js-cookie';
 
 export default function Settings() {
   const [packageHistory, setPackageHistory] = useState([]);
   const BASE_IMAGE_URL = "http://localhost:8000/colis_images";
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const token = Cookies.get('token');
-      if (!token) {
-        console.error('No token found in cookies');
-        return;
-      }
+  const fetchPackageHistory = async () => {
+    const token = Cookies.get('token');
+    if (!token) {
+      console.error('No token found in cookies');
+      return;
+    }
 
-      try {
-        const response = await fetch('http://localhost:8000/api/mycolislist', {
-          headers: {
-            'Authorization': `Bearer ${token}`
-          }
-        });
-
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
+    try {
+      const response = await fetch('http://localhost:8000/api/mycolislist', {
+        headers: {
+          'Authorization': `Bearer ${token}`
         }
+      });
 
-        const data = await response.json();
-        setPackageHistory(data);
-      } catch (error) {
-        console.error("Error fetching package history:", error);
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
       }
-    };
 
-    fetchData();
+      const data = await response.json();
+      setPackageHistory(data);
+    } catch (error) {
+      console.error("Error fetching package history:", error);
+    }
+  };
+
+  const updateLocations = async () => {
+    console.log("Fetching package history...");
+    await fetchPackageHistory();
+    console.log("Package history fetched:", packageHistory);
+
+    packageHistory.forEach(async (packageItem) => {
+      if (packageItem.state === "picked up") {
+        console.log("Updating location for colisId:", packageItem.id);
+        try {
+          const response = await fetch('http://localhost:8000/api/updatelocation', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ colis: packageItem.id }) // Correct usage of packageItem.id
+          });
+
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+
+          console.log("Location updated successfully");
+        } catch (error) {
+          console.error("Error updating location:", error);
+        }
+      }
+    });
+  };
+
+  useEffect(() => {
+    updateLocations();
   }, []);
 
   return (
@@ -76,20 +105,18 @@ export default function Settings() {
               <Text>
                 <b>State:</b> {packageItem.state}
               </Text>
-              {/* Add more details as needed */}
               <Text>
-                <b>Weight:</b> {packageItem.weight} lbs
+                <b>Total Weight:</b> {packageItem.total_weight} kg
               </Text>
               <Text>
-                <b>Estimated Price:</b> ${packageItem.estimatedPrice}
+                <b>Estimated Delivery Time:</b> {packageItem.estimated_delivery_time}
               </Text>
-              {packageItem.state === "Picked Up" || packageItem.state === "Delivered" ? (
+              <Text>
+                <b>Items:</b> {packageItem.products.map(product => product.description).join(', ')}
+              </Text>
+              {packageItem.state === "picked up" && packageItem.currentPlace && packageItem.currentPlace.length > 0 && (
                 <Text>
-                  <b>Delivery Person:</b> {packageItem.deliveryPerson}
-                </Text>
-              ) : (
-                <Text>
-                  <b>Estimated Delivery Time:</b> {packageItem.estimatedTime}
+                  <b>Current Location:</b> {packageItem.currentPlace}
                 </Text>
               )}
             </Box>
@@ -98,5 +125,4 @@ export default function Settings() {
       </SimpleGrid>
     </Box>
   );
-  
 }

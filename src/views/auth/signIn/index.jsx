@@ -47,22 +47,23 @@ function SignIn() {
     if (!validateEmail() || !validatePassword()) {
       return;
     }
-
+  
     try {
+      
       const response = await axios.post("http://localhost:8000/api/login", { email, password });
       const { jwt } = response.data;
       Cookies.set("token", jwt); // Storing JWT as a cookie
       localStorage.setItem("email", email);
-
+  
       const decodedToken = jwtDecode(jwt);
       const { roles } = decodedToken;
-
-      if (roles.includes("admin")) {
-        history.push("/admin/dashboard");
+  
+      if (roles.includes("client")) {
+        history.push("/client/dashboard");
       } else if (roles.includes("driver")) {
         history.push("/driver/dashboard");
       } else {
-        history.push("/client/dashboard");
+        history.push("/admin/dashboard");
       }
     } catch (error) {
       setError("Invalid email or password");
