@@ -135,25 +135,25 @@ Pour une liste complète des dépendances, veuillez consulter le fichier `packag
 
 Le code backend suit une structure modulaire et organisée, tirant parti de la puissance de Django pour construire une application robuste et scalable.
 
-#### 1. `project_name`
+#### 1. `project_pfa`
 - **Fichier Principal de l'Application :** `settings.py` sert de point d'entrée pour la configuration de l'application Django. Il inclut les paramètres globaux tels que les configurations de la base de données, les applications installées, les middlewares, etc.
 
-#### 2. `project_name/app_name`
+#### 2. `project_pfa/backend`
 - **Classes de Vue (Views) :** Le fichier `views.py` contient les classes et fonctions responsables de la gestion des requêtes HTTP entrantes. Chaque vue est dédiée à une fonctionnalité ou une entité spécifique, exposant des points de terminaison RESTful. Ces classes interagissent avec les services pour traiter les requêtes et retourner les réponses appropriées.
 
-#### 3. `project_name/app_name/services`
+#### 3. `project_pfa/backend/services`
 - **Classes de Service :** Le répertoire `services` contient des classes qui encapsulent la logique métier. Ces classes sont utilisées par les vues pour effectuer des opérations sur les données et communiquer avec les répertoires (repositories). Elles fournissent une couche d'abstraction entre les vues et les répertoires.
 
-#### 4. `project_name/app_name/models.py`
+#### 4. `project_pfa/backend/models.py`
 - **Classes de Modèle (Models) :** Le fichier `models.py` inclut des classes représentant les entités de données dans l'application. Ces classes sont annotées avec des annotations Django ORM, définissant la structure des tables de la base de données. Chaque entité correspond généralement à une table dans la base de données MySQL ou PostgreSQL.
 
-#### 5. `project_name/app_name/serializers.py`
+#### 5. `project_pfa/backend/serializers.py`
 - **Classes de Serializer :** Le fichier `serializers.py` contient des classes utilisées pour convertir les instances de modèle en formats de données tels que JSON. Les serializers facilitent la validation et la transformation des données entrantes et sortantes.
 
-#### 6. `project_name/app_name/urls.py`
+#### 6. `project_pfa/backend/urls.py`
 - **Routes et Points de Terminaison :** Le fichier `urls.py` définit les routes de l'application. Il mappe les URL aux vues correspondantes, permettant ainsi de gérer les requêtes HTTP vers les points de terminaison appropriés.
 
-#### 7. `project_name/app_name/tests.py`
+#### 7. `project_pfa/backend/tests.py`
 - **Tests Unitaires :** Le fichier `tests.py` contient des classes et des fonctions pour tester les différentes parties de l'application. Les tests unitaires garantissent que les fonctionnalités de l'application fonctionnent comme prévu.
 
 ### Dépendances
