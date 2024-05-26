@@ -12,7 +12,7 @@ Ce document présente notre plateforme innovante, une application web et mobile 
 - [Pour commencer](#pour-commencer)
 - [Utilisation](#utilisation)
 - [Structure du dossier](#structure-du-dossier)
-- [Dépendances](#dépendances)
+- [Prérequis](#Prérequis)
 - [Démo vidéo](#démo-vidéo)
 - [Contributions](#contributions)
   ## Aperçu
