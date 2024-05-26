@@ -54,7 +54,6 @@ La structure du projet frontend React repose sur quatre composants principaux, c
   - **Démarrage du Voyage:** Les livreurs peuvent commencer leur voyage, gérer la livraison des colis et mettre à jour le statut de chaque colis.
   - **Suivi en Temps Réel:** Suivi en temps réel des colis livrés avec mises à jour régulières de l'emplacement actuel du livreur.
   - **Gestion des Bons de Livraison:** Les livreurs peuvent gérer les bons de livraison pour chaque colis livré.
-  - **Notifications:** Alertes pour les nouvelles affectations de colis et les modifications de l'itinéraire.
 
 ### 4. Composant Admin
 - **Objectif:** Fournir une vue d'ensemble des statistiques des colis et faciliter la gestion des colis, des livreurs et des clients, tout en supervisant le système.
@@ -64,6 +63,5 @@ La structure du projet frontend React repose sur quatre composants principaux, c
   - **Gestion des Colis:** Permet de visualiser, ajouter, modifier et supprimer des colis.
   - **Gestion des Utilisateurs:** Fonctionnalités d'ajout, modification et suppression rapides des livreurs et des clients existants.
   - **Tableaux et Graphiques:** Utilisation de graphiques pour représenter les données de manière visuelle et compréhensible.
-  - **Notifications:** Système de notifications pour les actions importantes, comme les nouveaux colis ou les modifications d'état des colis.
 
 
