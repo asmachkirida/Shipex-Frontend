@@ -6,15 +6,19 @@
 
 Ce document présente notre plateforme innovante, une application web et mobile dédiée à l'optimisation logistique par la géolocalisation. Ce projet vise à simplifier et améliorer les processus de transport et de gestion des stocks dans l'industrie logistique. Notre objectif est de faciliter la gestion des itinéraires de transport de manière efficace, en offrant des fonctionnalités telles que le suivi en temps réel des livraisons, l'optimisation des itinéraires et la planification des horaires de livraison. Conçue pour aider les entreprises à réduire les coûts logistiques tout en améliorant l'efficacité des opérations, cette plateforme permet une gestion logistique optimisée grâce à des fonctionnalités avancées et une interface intuitive. Un élément clé de notre plateforme est l'intégration de Google Maps, qui aide à optimiser les trajets et à s'adapter aux besoins spécifiques de chaque entreprise, redéfinissant ainsi la logistique traditionnelle. En utilisant la technologie pour optimiser la logistique, nous visons non seulement à rendre les processus plus efficaces, mais aussi à répondre aux besoins uniques de chaque entreprise.
 ## Table des matières
-- [Aperçu](#aperçu)
-- [Frontend](#frontend)
-- [Backend](#backend)
-- [Pour commencer](#pour-commencer)
-- [Utilisation](#utilisation)
-- [Structure du dossier](#structure-du-dossier)
-- [Prérequis](#Prérequis)
-- [Démo vidéo](#démo-vidéo)
-- [Contributions](#contributions)
+  1. [Aperçu](#aperçu)
+  2. [Architecture logicielle](#architecture-logicielle)
+  3. [Frontend](#frontend)
+      - [Technologies Utilisées](#technologies-utilisées)
+      - [Structure du Projet Frontend](#structure-du-projet-frontend)
+  4. [Backend](#backend)
+      - [Technologies Utilisées](#technologies-utilisées-1)
+      - [Structure du Projet Backend](#structure-du-projet-backend)
+  5. [Prérequis](#prérequis)
+  6. [Illustrative Example](#illustrative-example)
+  7. [Video Demonstration](#video-demonstration)
+  8. [Contributing](#contributing)
+
   ## Aperçu
  Le projet vise à créer une application de géolocalisation révolutionnaire pour simplifier la gestion logistique. Avec une interface conviviale et sécurisée, elle rend l'optimisation des itinéraires et la gestion des stocks accessibles à tous. En offrant des fonctionnalités comme le suivi en temps réel des livraisons et la sélection d'itinéraires basée sur les conditions de trafic, elle améliore l'efficacité opérationnelle et la satisfaction client. L'objectif principal est d'optimiser les processus logistiques et de réduire les coûts, tout en favorisant l'adoption continue de cette solution innovante.
 - ## Architecture logicielle
