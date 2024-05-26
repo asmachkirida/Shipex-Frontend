@@ -15,9 +15,8 @@ Ce document présente notre plateforme innovante, une application web et mobile 
       - [Technologies Utilisées](#technologies-utilisées-1)
       - [Structure du Projet Backend](#structure-du-projet-backend)
   5. [Prérequis](#prérequis)
-  6. [Illustrative Example](#illustrative-example)
-  7. [Video Demonstration](#video-demonstration)
-  8. [Contributing](#contributing)
+  6. [Video Demonstration](#video-demonstration)
+  7. [Contributing](#contributing)
 
   ## Aperçu
  Le projet vise à créer une application de géolocalisation révolutionnaire pour simplifier la gestion logistique. Avec une interface conviviale et sécurisée, elle rend l'optimisation des itinéraires et la gestion des stocks accessibles à tous. En offrant des fonctionnalités comme le suivi en temps réel des livraisons et la sélection d'itinéraires basée sur les conditions de trafic, elle améliore l'efficacité opérationnelle et la satisfaction client. L'objectif principal est d'optimiser les processus logistiques et de réduire les coûts, tout en favorisant l'adoption continue de cette solution innovante.
