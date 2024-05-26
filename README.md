@@ -193,8 +193,12 @@ Le code backend suit une structure modulaire et organisée, tirant parti de la p
 - Pour démarrer le serveur de développement React, exécutez : `npm start`.
 
 
-## Exemple Illustratif :
-Ce scénario illustratif met en lumière les fonctionnalités et les avantages de notre solution de suivi de colis en temps réel, offrant une expérience fluide et sécurisée tant pour les clients que pour les livreurs.
+## Vidéo de Démo
+Cliquez sur le lien ci-dessous pour regarder une vidéo de démonstration :
+
+
+https://github.com/asmachkirida/Shipex-Frontend/assets/118173002/bca96337-59e5-4f98-9ada-6fcd359f5435
+
 
 
 
