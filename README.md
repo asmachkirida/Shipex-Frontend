@@ -1,5 +1,8 @@
-# Project Shipex
-![Capture_d_écran_2024-05-16_142433-removebg-preview](https://github.com/asmachkirida/Shipex-Frontend/assets/118173002/2d07ac80-6d76-4b0f-8061-f3a230d9ac47)
+# <div align="center">Project Shipex</div>
+
+<div align="center">
+  <img src="https://github.com/asmachkirida/Shipex-Frontend/assets/118173002/2d07ac80-6d76-4b0f-8061-f3a230d9ac47" alt="Capture_d_écran_2024-05-16_142433-removebg-preview">
+</div>
 
 Ce document présente notre plateforme innovante, une application web et mobile dédiée à l'optimisation logistique par la géolocalisation. Ce projet vise à simplifier et améliorer les processus de transport et de gestion des stocks dans l'industrie logistique. Notre objectif est de faciliter la gestion des itinéraires de transport de manière efficace, en offrant des fonctionnalités telles que le suivi en temps réel des livraisons, l'optimisation des itinéraires et la planification des horaires de livraison. Conçue pour aider les entreprises à réduire les coûts logistiques tout en améliorant l'efficacité des opérations, cette plateforme permet une gestion logistique optimisée grâce à des fonctionnalités avancées et une interface intuitive. Un élément clé de notre plateforme est l'intégration de Google Maps, qui aide à optimiser les trajets et à s'adapter aux besoins spécifiques de chaque entreprise, redéfinissant ainsi la logistique traditionnelle. En utilisant la technologie pour optimiser la logistique, nous visons non seulement à rendre les processus plus efficaces, mais aussi à répondre aux besoins uniques de chaque entreprise.
 ## Table des matières
@@ -163,7 +166,7 @@ Le code backend suit une structure modulaire et organisée, tirant parti de la p
 - **mysqlclient  :** Connecteur JDBC pour se connecter à une base de données MySQL .
 
 
-### Prérequis :
+## Prérequis :
 - Git :
 
   Assurez-vous d'avoir Git installé. Si ce n'est pas le cas, téléchargez et installez-le depuis [git-scm.com](https://git-scm.com/).
@@ -188,6 +191,12 @@ Le code backend suit une structure modulaire et organisée, tirant parti de la p
 - Clonez le projet en utilisant Git : `git clone https://github.com/asmachkirida/Shipex-Frontend.git`.
 - Pour le projet React, installez les dépendances en exécutant : `npm install`.
 - Pour démarrer le serveur de développement React, exécutez : `npm start`.
+
+
+## Exemple Illustratif :
+Ce scénario illustratif met en lumière les fonctionnalités et les avantages de notre solution de suivi de colis en temps réel, offrant une expérience fluide et sécurisée tant pour les clients que pour les livreurs.
+
+
 
 
 
