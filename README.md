@@ -180,16 +180,14 @@ Le code backend suit une structure modulaire et organisée, tirant parti de la p
 
   Installez Django en utilisant pip : `pip install django`.
   
-- Backend Project :
+### Configuration du Projet Backend :
+- Clonez le projet en utilisant Git : `git clone https://github.com/hamzalach02/PFA.git`.
+- Lancez le serveur Django en exécutant : `python manage.py runserver`.
 
-  Clonez le projet en utilisant Git : `git clone <repository_url>`.
-  
-- Frontend Project :
-
-  Pour le projet React, installez les dépendances en exécutant : `npm install`.
-
-
-
+### Configuration du Projet Frontend :
+- Clonez le projet en utilisant Git : `git clone https://github.com/asmachkirida/Shipex-Frontend.git`.
+- Pour le projet React, installez les dépendances en exécutant : `npm install`.
+- Pour démarrer le serveur de développement React, exécutez : `npm start`.
 
 
 
