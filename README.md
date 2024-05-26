@@ -65,3 +65,56 @@ La structure du projet frontend React repose sur quatre composants principaux, c
   - **Tableaux et Graphiques:** Utilisation de graphiques pour représenter les données de manière visuelle et compréhensible.
 
 
+## Dépendances Principales
+
+Le projet utilise plusieurs bibliothèques et frameworks pour offrir une interface utilisateur moderne et fonctionnelle. Voici les principales dépendances :
+
+### 1. Chakra UI
+- **Description:** Chakra UI est une bibliothèque de composants React simple, modulaire et accessible qui vous donne tous les éléments de construction dont vous avez besoin pour créer des interfaces utilisateur.
+- **Utilisation:** Utilisé pour la création de composants d'interface utilisateur réactifs et accessibles.
+- **Paquets:**
+  - `@chakra-ui/react`: Composants principaux de Chakra UI.
+  - `@chakra-ui/icons`: Icônes pour Chakra UI.
+  - `@chakra-ui/system`: Système de base pour Chakra UI.
+  - `@chakra-ui/theme-tools`: Outils de thème pour Chakra UI.
+  - `@emotion/react`: Librairie d'émotion pour le CSS-in-JS.
+  - `@emotion/styled`: Composants stylisés pour Emotion.
+
+### 2. Google Maps
+- **Description:** Fournit une intégration facile avec l'API Google Maps pour afficher des cartes et des directions.
+- **Utilisation:** Utilisé pour afficher les itinéraires des chauffeurs et les localisations des colis.
+- **Paquets:**
+  - `@react-google-maps/api`: API Google Maps pour React.
+
+### 3. Axios
+- **Description:** Axios est une bibliothèque HTTP basée sur des promesses qui permet de faire des requêtes vers une API de manière simple et efficace.
+- **Utilisation:** Utilisé pour effectuer des requêtes HTTP vers l'API backend pour des opérations CRUD.
+- **Paquet:**
+  - `axios`: Utilisé pour les requêtes HTTP.
+
+### 4. JWT (JSON Web Tokens)
+- **Description:** JWT est une méthode compacte et sécurisée pour représenter les informations entre deux parties.
+- **Utilisation:** Utilisé pour l'authentification sécurisée des utilisateurs et la gestion des sessions.
+- **Paquet:**
+  - `jwt-decode`: Utilisé pour décoder les tokens JWT.
+
+### 5. Cookies
+- **Description:** Bibliothèque simple pour gérer les cookies.
+- **Utilisation:** Utilisé pour stocker et gérer les tokens JWT dans les cookies pour la gestion des sessions utilisateur.
+- **Paquet:**
+  - `js-cookie`: Utilisé pour la gestion des cookies.
+
+### Autres Dépendances
+Le projet utilise également d'autres dépendances pour diverses fonctionnalités, telles que la manipulation des dates, la gestion des fichiers, les animations, et plus encore. Voici quelques-unes d'entre elles :
+
+- `react-calendar`: Composant de calendrier pour React.
+- `react-dropzone`: Composant de téléchargement de fichiers pour React.
+- `react-icons`: Bibliothèque d'icônes pour React.
+- `react-router-dom`: Gestion des routes pour React.
+- `react-scripts`: Scripts et configuration pour les applications React.
+- `react-table`: Bibliothèque pour la création de tableaux dans React.
+
+Pour une liste complète des dépendances, veuillez consulter le fichier `package.json` du projet.
+
+
+
